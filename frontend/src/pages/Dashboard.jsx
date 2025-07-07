@@ -4,6 +4,9 @@ import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
 import { useTranslation } from 'react-i18next';
 
+// ✅ Import backend URL from .env
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export default function Dashboard() {
   const { t } = useTranslation();
   const [tasks, setTasks] = useState([]);
@@ -12,7 +15,8 @@ export default function Dashboard() {
 
   const fetchTasks = () => {
     axios
-      .get('/api/tasks', { withCredentials: true })
+      // ✅ Use full backend URL
+      .get(`${BACKEND_URL}/api/tasks`, { withCredentials: true })
       .then(res => {
         if (Array.isArray(res.data)) {
           setTasks(res.data);

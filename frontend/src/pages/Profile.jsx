@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 
+// ✅ Import the backend URL from Vite environment variable
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export default function Profile({ setLanguage, user, setUser }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -15,7 +18,6 @@ export default function Profile({ setLanguage, user, setUser }) {
   const [selectedLang, setSelectedLang] = useState(i18n.language || 'en');
   const [avatarPreview, setAvatarPreview] = useState(user?.avatarUrl || '');
 
-  // Language change handler
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
     setSelectedLang(lang);
@@ -24,7 +26,6 @@ export default function Profile({ setLanguage, user, setUser }) {
     toast.success(t('language_changed') || 'Language changed!');
   };
 
-  // Avatar upload
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -37,16 +38,15 @@ export default function Profile({ setLanguage, user, setUser }) {
     reader.readAsDataURL(file);
   };
 
-  // Delete task handler
   const handleDeleteTask = async (taskId) => {
     const confirmed = window.confirm(t('delete_confirm') || 'Are you sure you want to delete this task?');
     if (!confirmed) return;
 
     try {
-      await axios.delete(`/api/tasks/${taskId}`, { withCredentials: true });
+      // ✅ Use full backend URL
+      await axios.delete(`${BACKEND_URL}/api/tasks/${taskId}`, { withCredentials: true });
       toast.success(t('task_deleted') || 'Task deleted successfully');
 
-      // Remove task locally (if setUser is available)
       if (setUser) {
         setUser(prev => ({
           ...prev,
@@ -59,10 +59,10 @@ export default function Profile({ setLanguage, user, setUser }) {
     }
   };
 
-  // Logout functionality
   const handleLogout = async () => {
     try {
-      await axios.post('/api/auth/logout', {}, { withCredentials: true });
+      // ✅ Use full backend URL
+      await axios.post(`${BACKEND_URL}/api/auth/logout`, {}, { withCredentials: true });
       navigate('/');
       toast.success(t('logout_success') || 'Logged out successfully');
     } catch (error) {
@@ -74,8 +74,6 @@ export default function Profile({ setLanguage, user, setUser }) {
   return (
     <div className="min-h-screen bg-gradient-to-tr from-purple-100 via-pink-100 to-blue-100 py-10 px-4">
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-2xl rounded-3xl border border-blue-200 backdrop-blur-sm">
-
-        {/* Profile Header */}
         <div className="flex items-center gap-4 mb-6 relative">
           <label htmlFor="avatar-upload" className="cursor-pointer group relative">
             {avatarPreview ? (
@@ -107,7 +105,6 @@ export default function Profile({ setLanguage, user, setUser }) {
           </div>
         </div>
 
-        {/* Language Selector */}
         <div className="mb-6">
           <label className="text-gray-700 font-medium flex items-center gap-2">
             <Languages size={18} className="text-blue-500" />
@@ -125,7 +122,6 @@ export default function Profile({ setLanguage, user, setUser }) {
           </select>
         </div>
 
-        {/* Stats */}
         <div className="flex items-center justify-between text-sm text-white bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 px-5 py-4 rounded-xl mb-6 shadow-lg">
           <div className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
             <Flame className="animate-pulse" />
@@ -141,7 +137,6 @@ export default function Profile({ setLanguage, user, setUser }) {
           </div>
         </div>
 
-        {/* Tasks */}
         <div>
           <h2 className="text-2xl font-semibold text-purple-800 mb-4">{t('tasks')}</h2>
           {user?.tasks?.length > 0 ? (
@@ -179,12 +174,10 @@ export default function Profile({ setLanguage, user, setUser }) {
           )}
         </div>
 
-        {/* Leaderboard */}
         <div className="mt-10">
           <Leaderboard />
         </div>
 
-        {/* Logout Button */}
         <div className="mt-8 flex justify-end">
           <button
             onClick={handleLogout}

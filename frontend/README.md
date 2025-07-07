@@ -49,6 +49,9 @@ SyncSphTere is a collaborative ToDo List web application built with a full-stack
    ```bash
    git clone https://github.com/Roopasree7/Todo-List.git
    cd Todo-List
+<<<<<<< HEAD
 
  **This project is a part of a hackathon run by 
 https://www.katomaran.com**
+=======
+>>>>>>> 9de5acb (updated)
