@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
 export default function TaskModal({ closeModal, refreshTasks, onError }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -16,7 +14,7 @@ export default function TaskModal({ closeModal, refreshTasks, onError }) {
 
     try {
       await axios.post(
-        `${BACKEND_URL}/api/tasks`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/tasks`,
         { title, description, dueDate },
         { withCredentials: true }
       );

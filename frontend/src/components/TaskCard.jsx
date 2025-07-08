@@ -3,7 +3,6 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function TaskCard({ task, refreshTasks }) {
   const [loading, setLoading] = useState(false);
@@ -12,7 +11,7 @@ export default function TaskCard({ task, refreshTasks }) {
     setLoading(true);
     try {
       await axios.put(
-        `${BACKEND_URL}/api/tasks/${task.id}`,
+        `/api/tasks/${task.id}`,
         { status: 'done' },
         { withCredentials: true }
       );
@@ -28,7 +27,7 @@ export default function TaskCard({ task, refreshTasks }) {
     if (!window.confirm('Are you sure you want to delete this task?')) return;
     setLoading(true);
     try {
-      await axios.delete(`${BACKEND_URL}/api/tasks/${task.id}`, { withCredentials: true });
+      await axios.delete(`/api/tasks/${task.id}`, { withCredentials: true });
       refreshTasks();
     } catch (err) {
       alert('Failed to delete');

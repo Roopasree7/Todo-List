@@ -1,24 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
-import LeaderboardPage from './pages/Leaderboard';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';  
 import './App.css';
+import LeaderboardPage from './pages/Leaderboard';
 
-function AppContent() {
-  const location = useLocation();
-
+export default function App() {
   return (
-    <>
+    <BrowserRouter>
       {/* Toast notifications */}
       <ToastContainer position="top-right" autoClose={3000} />
 
-      {/* Conditionally render Navbar */}
-      {location.pathname !== '/' && <Navbar />}
+      {/* Show navbar only if not on login page */}
+      {window.location.pathname !== "/" && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Login />} />
@@ -26,14 +24,6 @@ function AppContent() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
       </Routes>
-    </>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
     </BrowserRouter>
   );
 }
