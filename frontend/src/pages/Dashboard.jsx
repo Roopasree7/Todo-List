@@ -12,7 +12,7 @@ export default function Dashboard() {
 
   const fetchTasks = () => {
     axios
-      .get('/api/tasks', { withCredentials: true })
+      .get('http://localhost:5000/api/tasks', { withCredentials: true })
       .then(res => {
         if (Array.isArray(res.data)) {
           setTasks(res.data);

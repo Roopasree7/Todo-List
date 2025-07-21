@@ -14,7 +14,7 @@ export default function TaskModal({ closeModal, refreshTasks, onError }) {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/tasks`,
+        '/api/tasks',
         { title, description, dueDate },
         { withCredentials: true }
       );

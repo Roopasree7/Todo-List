@@ -43,7 +43,7 @@ export default function Profile({ setLanguage, user, setUser }) {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`/api/tasks/${taskId}`, { withCredentials: true });
+      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, { withCredentials: true });
       toast.success(t('task_deleted') || 'Task deleted successfully');
 
       // Remove task locally (if setUser is available)
