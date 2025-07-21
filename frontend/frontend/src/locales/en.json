@@ -1,0 +1,19 @@
+{
+  "profile": "Profile",
+  "guest": "Guest",
+  "language": "Language",
+  "language_changed": "Language changed!",
+  "avatar_updated": "Avatar updated!",
+  "streak": "Streak",
+  "points": "Points",
+  "tasks": "Tasks",
+  "no_description": "No description available",
+  "no_tasks": "No tasks yet",
+  "logout": "Logout",
+  "logout_success": "Logged out successfully",
+  "logout_failed": "Logout failed",
+    "delete": "Delete",
+  "delete_confirm": "Are you sure you want to delete this task?",
+  "task_deleted": "Task deleted successfully",
+  "delete_failed": "Failed to delete task"
+}
